@@ -94,13 +94,7 @@ cd nixos-minimal-installer-zfs-unstable
 NIX_PATH=nixpkgs=channel:nixos-19.03:nixos-config=./custom.nix nix-build --no-out-link '<nixpkgs/nixos>' -A config.system.build.isoImage
 ```
 
-The NixOS image will be stored in `/nix/store`, in our case:
-
-```
-...
-Making image hybrid...
-/nix/store/q3y4f5gjcx0hgwk5xkfr2wl9hywbg9k1-nixos-19.03.173238.4b6dd53b90a-x86_64-linux.iso
-```
+The NixOS image will be stored in `/nix/store`, in our case in `/nix/store/82vhvmc5pr6kcn3g13v2plfya0p1wrd3-nixos-19.03.173522.021d733ea3f-x86_64-linux.iso/iso/nixos-19.03.173522.021d733ea3f-x86_64-linux.iso`.
 
 # Create USB stick
 
