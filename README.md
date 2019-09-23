@@ -1,6 +1,6 @@
 # NixOS minimal installer with zfsUnstable
 
-This repository contains a build script that creates a custom NixOS installation image. The result contains zfsUnstable that is required in NixOS 19.03 to use the native ZFS encryption.
+This repository contains a build script that creates a custom NixOS installation image. The result image contains `zfsUnstable` that is required in NixOS 19.03 to use the native ZFS encryption. It also contains `dialog` since it is required by our custom installer.
 
 To create a custom NixOS install image we either need an existing NixOS environment or at least VirtualBox on our machine.
 
@@ -19,10 +19,12 @@ If you don't have access to a NixOS instance, the easiest way is to run the buil
 First of all download the VirtualBox appliance:
 
 ```
-curl -O https://releases.nixos.org/nixos/19.03/nixos-19.03.173214.4cc5592fe2d/nixos-19.03.173214.4cc5592fe2d-x86_64-linux.ova
+curl -O https://releases.nixos.org/nixos/19.03/nixos-19.03.173522.021d733ea3f/nixos-19.03.173522.021d733ea3f-x86_64-linux.ova
 ```
 
 Next start Virtualbox and import the OVA file for the downloaded VirtualBox appliance via `File` -> `Import Appliance`.
+
+Next go into `Machine` -> `Settings`, then `System` and set `Base memory` to 4096 MB. We will need a decent portion of memory to rebuild our system.
 
 Next go into `Machine` -> `Settings`, then `Network` -> `Adapter 1`  and set `Attached to` to `Bridged adapter`. Next go into `Advanced` and ensure that `Cable Connected` is checkeed.
 
