@@ -1,36 +1,34 @@
-# NixOS minimal installer with zfsUnstable
+# NixOS 19.09beta minimal installer with zfsUnstable
 
-This repository contains a build script that creates a custom NixOS installation image. The result image contains `zfsUnstable` that is required in NixOS 19.03 to use the native ZFS encryption. It also contains `dialog` since it is required by our custom installer.
+This repository contains a build script that creates a custom NixOS installation image. In our case we already use NixOS 19.09beta in productionsince it is predictable that NixOS 19.09 will be released in the next 3-4 weeks. The resulting ISO image contains `zfsUnstable` that is required to use the native ZFS encryption. It also contains `dialog` since it is required by our custom installer.
 
-To create a custom NixOS install image we either need an existing NixOS environment or at least VirtualBox on our machine.
+To create a custom NixOS install image we either need an existing NixOS 19.09 environment or at least VirtualBox on our machine.
 
 ## Existing NixOS environment
 
 If you already run a NixOS instance, just launch the following command:
 
 ```
-NIX_PATH=nixpkgs=channel:nixos-19.03:nixos-config=./custom.nix nix-build --no-out-link '<nixpkgs/nixos>' -A config.system.build.isoImage
+NIX_PATH=nixpkgs=channel:nixos-19.09:nixos-config=./custom.nix nix-build --no-out-link '<nixpkgs/nixos>' -A config.system.build.isoImage
 ```
 
 ## VirtualBox
 
-If you don't have access to a NixOS instance, the easiest way is to run the build in a virtual machine. To achieve this you need VirtualBox installed.
+If you don't have access to a NixOS 19.09 instance, the easiest way is to run the build in a virtual machine. To achieve this you need VirtualBox installed.
 
-First of all download the VirtualBox appliance:
+First of all download the appropriate VirtualBox appliance:
 
 ```
-curl -O https://releases.nixos.org/nixos/19.03/nixos-19.03.173522.021d733ea3f/nixos-19.03.173522.021d733ea3f-x86_64-linux.ova
+curl -O https://releases.nixos.org/nixos/19.09/nixos-19.09beta596.77b5a1965fc/nixos-19.09beta596.77b5a1965fc-x86_64-linux.ova
 ```
 
 Next start Virtualbox and import the OVA file for the downloaded VirtualBox appliance via `File` -> `Import Appliance`.
 
 Next go into `Machine` -> `Settings`, then `System` and set `Base memory` to 4096 MB. We will need a decent portion of memory to rebuild our system.
 
-Next go into `Machine` -> `Settings`, then `Network` -> `Adapter 1`  and set `Attached to` to `Bridged adapter`. Next go into `Advanced` and ensure that `Cable Connected` is checkeed.
+Next go into `Machine` -> `Settings`, then `Network` -> `Adapter 1`  and set `Attached to` to `Bridged adapter`. Next go to `Advanced` and set `Adapter type` to `Intel PRO/1000 MT Desktop (82540EM)`. Also ensure that `Cable Connected` is checked.
 
-Next start the machine, and wait for it to boot. You can login at the graphical login screen with username `demo` and password `demo`.
-
-When the desktop appears, open a terminal and launch the following commands:
+Next start the machine, and wait for it to boot. It doesn't require to login, Plasma 5 is launched automatically as user `demo`. When the desktop appears, open a terminal and launch the following commands:
  
 ```
 sudo su -
@@ -49,7 +47,8 @@ To login later via SSH into our virtual machine we need to enable SSH daemon in 
  
 ```
 { config, lib, pkgs, ...}:
-``` 
+```
+ 
 Next uncomment line 53:
 
 ```
